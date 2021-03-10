@@ -1,0 +1,40 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: Kamelet
+metadata:
+  name: sap-source
+  annotations:
+    camel.apache.org/provider: "Red Hat"
+  labels:
+    camel.apache.org/kamelet.type: "source"
+spec:
+  definition:
+    title: "SAP SalesOrder Source"
+    description: |-
+      Receive updates from SAP OData V4 Demo .
+    required:
+      - salesOrderId
+    properties:
+      salesorder:
+        title: Sales Order ID 
+        description: The Sales Order
+        type: string
+        example: 500000000
+      serviceuri:
+        title: Service URI
+        description: Target OData service base URI
+        type: string
+        example: https://sapes5.sapdevcenter.com/sap/opu/odata4/sap/ze2e001/default/sap/ze2e001_salesorder/0001/
+  types:
+    out:
+      mediaType: application/json
+  dependencies:
+  - "camel:olingo4"
+  flow:
+    from:
+      uri: "timer:java?period=1000&repeatCount=01"
+      steps:
+      - to: 
+        uri: "olingo4:read/SalesOrder?serviceUri={{serviceuri}}&$top=2"
+      - to:
+        uri: "log:filtered"
+      - to: "kamelet:sink"

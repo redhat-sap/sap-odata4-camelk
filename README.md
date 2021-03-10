@@ -20,11 +20,16 @@ oc new-project sapdemo
 
 2. Create the channel needed
 
+In Channel folder
+
 ```
-oc create -f channel-ordercheck.yaml
-oc create -f channel-returntxt.yaml
+oc create -f channel/channel-ordercheck.yaml
+oc create -f channel/channel-returntxt.yaml
 ```
 
+Telegram 
+(in telegram folder)
+--------------
 3. Create the Camel K Application that integrate with SAP
 
 ```
@@ -48,7 +53,37 @@ oc create -f telegram-source.kamelet.yaml
 ```
 oc create -f telegram-binding.yaml
 ```
+--------------
 
+
+Slack
+(in slack folder)
+--------------
+3. Create the Camel K Application that integrate with SAP
+
+```
+kamel run SapOdata.java
+```
+
+4. Activate Incoming Webhooks in slack bot, and copy the Webhook URL add to sinkslack.properties
+
+
+```
+kamel run SapSalesSlack.yaml --property-file=sinkslack.properties
+```
+
+5. Install the Slack Kamelet if not already avalible. 
+
+```
+oc create -f slack-source.kamelet.yaml
+```
+
+6. Create the Kamelet Binding. First replace the  authorization token with your Slack Bot User OAuth Token
+
+```
+oc create -f slack-binding.yaml
+```
+--------------
 
 
 DONE

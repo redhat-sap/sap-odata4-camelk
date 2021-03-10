@@ -10,7 +10,7 @@ Setup your ENV
 - Install Knative Serving & Eventing (Cluster Wide)
 - Install Camel K Operator (Cluster Wide)
 - Install Camel K binary or Camel K extension in VS Code
-- Create an Telegram bot and get the authorization token (https://core.telegram.org/bots) or create a bot in Slack and get the Slack Bot User OAuth Token
+- Create an Telegram bot and get the authorization token (https://core.telegram.org/bots) or create a bot in Slack and get the Slack Bot User OAuth Token (https://api.slack.com/bot-users)
 
 
 1. Create a project to run the integration code

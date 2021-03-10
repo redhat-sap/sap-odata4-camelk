@@ -1,0 +1,9 @@
+- from:
+    uri: "knative://channel/returntxt" 
+    steps:
+      - unmarshal:
+          json: {}
+      - to: 
+          uri: "log:foo?showHeaders=true"
+      - to: 
+          uri: "slack://sales-order"
